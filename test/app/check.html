@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" /> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" /> 
+        <link href="../lib/css/bootstrap.min.css" rel="stylesheet" /> 
+        <link rel="stylesheet" href="../css/base.css">
+        <title>输入验证券</title>
+        <style>
+            .modal-dialog{
+                width: 286px;
+                position: absolute;
+                left: 50%;
+                margin-left: -143px;
+                margin-top: 160px;
+            }
+            .modal-content {
+                width: 286px;
+                border-radius: 12px;
+                overflow: hidden;
+                padding: 0 0 9px 0;
+            }
+            .lis{
+                height: 130px;
+                width: 90%;
+                margin: 0 auto;
+                background-color: #fff;
+                margin-top: 12px;
+                padding:3px 11px 12px;
+                border: 1px solid #d6d6d6;
+                border-radius: 5px;
+                box-shadow: 0 2px 4px #ccc;
+                position: relative;
+            }
+            .chead{
+                height: 32px;
+                border-bottom: 1px dashed #ccc;
+                height: 32px;
+                line-height: 28px;
+            }
+            .chead .yzheng{
+                font-size: 13px;  
+            }
+            .dash{
+                position: absolute;
+                top: 27px;
+                height: 18px;
+                width: 100%;
+            }
+            .dash span{
+                width: 10px;
+                height: 15px;
+                display: inline-block;
+                background-color: #fff;
+                border: 1px solid #fff;
+    
+            }
+            .dash span:nth-child(1){
+                margin-left: -16px;
+                border-radius:0 15px 15px 0;
+                border-right-color: #d6d6d6;
+            }
+            .dash span:nth-child(2){
+                margin-right: 8px;
+                border-radius: 15px 0 0 15px;
+                border-left-color: #d6d6d6;
+            }
+            .cbody{
+                padding: 50px 0 0 0;
+               text-align: center;
+               font-size: 17px;
+            }
+            header{
+                color: #007aff;
+                font-size: 18px;
+                font-weight: 600;
+                text-align: center;
+                height: 33px;
+                line-height: 50px;
+            }
+            .state{
+                text-align: center;
+                font-size: 17px;
+                font-weight: 600;
+                color: #333333;
+                height: 40px;
+                line-height: 36px;
+                border-bottom: 1px solid #f2f2f2;
+            }
+            .state span{
+                font-size: 17px;
+                font-weight: 600;
+                color: #f49f31;
+            }
+            .title{
+                text-align: center;
+                margin: 200px 0 0 0;
+                height: 400px;
+                font-size: 18px;
+            }
+            
+        </style>
+    </head>
+    <body ontouchstart>
+    <div class="title">优惠券验证</div>
+        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"> 
+            <div class="modal-dialog modal-sm" role="document"> 
+            <div class="modal-content">
+                <header>优惠券状态</header>
+                <div class="lis">
+                <div class="dash">
+                    <span class="fl"></span>
+                    <span class="fr"></span>
+                </div>
+                <div class="cbody">
+                   23456787654
+                </div>
+                </div>
+                <header id="used">确定</header>
+            </div> 
+            </div> 
+        </div>
+        <div id="yincang" data-toggle="modal" data-target=".bs-example-modal-sm"></div>    
+    </body>
+    <script src="../lib/js/jquery.min.js"></script>
+    <script src="../lib/js/bootstrap.min.js"></script> 
+    <script>
+    var idurl=getUrlParam('id');
+    var codeurl=getUrlParam('code');
+    var id,code;
+    if(idurl !=null && idurl.toString().length>0){id=getUrlParam("id");}
+    function getUrlParam(name) {var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");var r = window.location.search.substr(1).match(reg);if (r != null) return unescape(r[2]);return null;}
+     if(codeurl !=null && codeurl.toString().length>0){code=getUrlParam("code");}
+    function getUrlParam(name) {var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");var r = window.location.search.substr(1).match(reg);if (r != null) return unescape(r[2]);return null;}
+            $.ajax({
+            url: '/draw/index.php?s=/home/draw/exchange/code/'+code+'/id/'+id,
+            type: 'GET',
+            async:false,
+            success:function(data){
+                data=JSON.parse(data);
+               if(data.code==1){
+                $('.cbody').text('优惠券验证成功！')
+               }else{
+                $('.cbody').text(data.msg)
+               }
+            }
+            })
+    $('#yincang').click();
+    $('#used').click(function(){   
+    var useragent = navigator.userAgent;
+    var useragents = navigator.userAgent.toLowerCase();
+    if (useragent.match(/MicroMessenger/i) == 'MicroMessenger') {
+        WeixinJSBridge.call('closeWindow');
+    }else if(useragents.match(/android/i) == 'android'){
+        window.history.back();
+    }else{
+        window.close();  
+    }
+    });
+    $('.title').click(function(){
+        $('#yincang').click();
+    });
+    </script>
+</html>

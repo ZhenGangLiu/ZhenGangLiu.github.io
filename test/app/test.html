@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <title>调试专用</title>
+    <meta charset="utf-8" /> 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
+  <link href="../images/huanchong.gif" media="(device-width: 320px)" rel="apple-touch-startup-image" /> 
+  <style>
+  	header{
+  		text-align: center
+  	}
+    div{
+      margin: 0 auto;
+      width: 100%;
+    }
+  	#carbtn{
+      display: block;
+      width: 200px;
+      height: 39px;
+      line-height: 39px;
+      text-align: center;
+      margin:90px auto;
+      font-size: 16px;
+      font-weight: 700;
+      border-radius: 5px;
+      background: -moz-linear-gradient(left, #00d2ff, #3a7cd5);
+      background: -webkit-linear-gradient(left, #00d2ff, #3a7cd5);
+      background: linear-gradient(to right, #00d2ff, #3a7cd5);
+    }
+    #carbtn:active{
+      color: #ccc;
+    }
+  </style>
+  <link rel="stylesheet" href="../css/base.css">
+    </head>
+    <body touchstart>
+    <header>调试页面</header>
+    <div>
+      <span id="carbtn" onClick="showAndroidToast()">呼叫出租车</span>
+    </div>
+   
+    </body>
+    <script src="../lib/js/jquery.min.js"></script>
+    <script>
+    $.get({
+        type:'GET',
+        url:'http://118.190.91.24:8080/sc/index.php?s=/home/scenic/index/pageSize/6/distance/10/lat/39.959/lng/116.2989',
+        async:false,
+        success: function (data) {
+          alert(11111);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+         console.log(XMLHttpRequest);
+         console.log(textStatus);
+         console.log(errorThrown)
+        }
+      });
+      function showAndroidToast() {       
+          android.showToast();   
+      }
+    </script>
+
+</html>

@@ -1,0 +1,114 @@
+/*
+* @Author: admin
+* @Date:   2017-06-12 13:55:27
+* @Last Modified by:   admin
+* @Last Modified time: 2017-09-19 17:24:24
+*/
+body{
+	background:url(../images/cj_bg1.png) no-repeat;
+    background-size:100% ; 
+    background-color: #4FD7D5;
+}
+.bgc{
+	margin: 10px auto;
+	text-align: center;
+}
+.xyun{
+	display: inline-block;
+	z-index: 10;
+	width: 92%;
+	height: 470px;
+	
+}
+.zhuti{
+	z-index: 1000;
+	position: absolute;
+	top: 20px;
+	padding: 0 10px;
+}
+.zhuti h4{
+	color: #333;
+	font-size: 20px;
+}
+.zhuti div{
+	//margin-bottom: 45px;
+	margin-bottom: 25px;
+}
+.content{
+	margin-bottom: 30px;
+}
+.mcoupon{
+	text-align: center;
+	margin: 22px 0;
+	position: relative
+}
+.mcoupon button{
+	background-color: #f49f38;
+	color: #fff;
+	width: 118px;
+	height: 40px;
+	border: 0;
+	border-radius: 7px;
+}
+.mcoupon .badge{
+	position: absolute;
+	width: 23px;
+	height: 23px;
+	font-size: 16px;
+	top: -11px;
+	margin-left: -9px;
+	background-color: red;
+
+}
+.mcoupon button:active{
+	background-color: #ccc;
+}
+.modal-dialog{
+	position: absolute;
+	left: 50%;
+	margin-left: -150px;
+	margin-top: 126px;
+}
+.modal-content{
+	width: 300px;
+	height: 308px;
+	background:url(../images/cj_04.png) no-repeat;
+    background-size:100% ;
+	box-shadow:none;
+	border: 0;
+	text-align: center;
+	padding: 139px 0 0 0;
+
+}
+.guize{
+	margin: 0 10px;
+	font-size: 13px;
+	display: inline-block;
+	height: 23px;
+	line-height: 23px;
+}
+.stime,#stime{
+	margin-top: 12px;
+	//text-align: right;
+	//margin-right: 22px;
+	font-size: 13px;
+	color: #755e3a;
+}
+.gzh{
+	position: absolute;
+	bottom: 22px;
+	left: 49px;
+}
+.gzh .des{
+	float: left;
+	margin: 20px 0 0 10px;
+}
+.des p{
+	text-align: left;
+	color:#755e3a ;
+}
+.gzh img{
+width: 70px;
+height: 70px;
+float: left;
+}
