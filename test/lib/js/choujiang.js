@@ -19,7 +19,7 @@ var isMobile = {
 };
 
 var turnWheel = {
-    rewardNames:["谢谢参与","奖","奖","奖","奖","奖"],				//转盘奖品名称数组
+    rewardNames:["谢谢参与","奖金100万","钻石","黄金","白银","书籍"],				//转盘奖品名称数组
     colors:[ 
         "#f5edb8","#FFFFFF",
         "#f5edb8","#FFFFFF",
@@ -56,7 +56,7 @@ $(document).ready(function(){
         $('#wheelCanvas').rotate({
             angle:0,
             animateTo:angles + 360 * 8, // 这里多旋转了5圈，圈数越多，转的越快
-            duration:3000,
+            duration:4000,
             callback:function (){ // 回调方法
                 $("#yincang").click();
                 if(tip=='谢谢参与'){$("#tip").html('<span>没有中奖</span></br><span>不过最重要的是开心咯</span>');}else{ $("#tip").text("抽中："+tip);}
