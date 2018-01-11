@@ -51,24 +51,24 @@ $('.aa').text(4)
   	arra=[
   	{
   		"cutOffTime":"1515669739",
-  			"name":"NAME1",
+  			"name":"卡券1",
   			"desc":"最终解释权商家所有"
   	},
   	{
 "cutOffTime":"1515669739",
-  			"name":"NAME2",
+  			"name":"卡券2",
   			"desc":"最终解释权商家所有"
   	}
   	,
   	{
 "cutOffTime":"1515669739",
-  			"name":"NAME3",
+  			"name":"卡券3",
   			"desc":"最终解释权商家所有"
   	}
   	,
   	{
 "cutOffTime":"1515669739",
-  			"name":"NAME4",
+  			"name":"卡券4",
   			"desc":"最终解释权商家所有"
   	}
   	]
@@ -126,7 +126,7 @@ for (var i = 0; i < arra.length; i++) {
 	    tac.innerHTML += '<div class="coupon"> '+
 	       '<div class="chead ">'+
 	        '<h4 class="disib">优惠券</h4><i></i>'+
-	        '<span class="ti fr">'+'川西坝子'+'</span>'+
+	        '<span class="ti fr">'+'我的地盘'+'</span>'+
 	       '</div> '+
 	       '<div class="dash">'+
 	       '<span class="fl"></span>'+
@@ -170,7 +170,7 @@ for (var i = 0; i < arrb.length; i++) {
 	    tbc.innerHTML += '<div  class="coupon" cdata='+i+' data-toggle="modal" data-target=".bs-example-modal-sm"> '+
 	       '<div class="chead ">'+
 	        '<h4 class="disib">优惠券</h4>'+
-	        '<span class="ti fr">'+'川西坝子'+'</span>'+
+	        '<span class="ti fr">'+'我的地盘'+'</span>'+
 	       '</div> '+
 	       '<div class="dash">'+
 	       '<span class="fl"></span>'+
