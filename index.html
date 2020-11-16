@@ -1,55 +1,183 @@
 ﻿<!DOCTYPE html>
-<html lang="zh" class="no-js demo-1">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-		<title>刘振刚的小站</title>
-		<script src="js/jquery.min.js"></script>
-		<script src="js/Helper.js"></script>
-		<script src="js/keyboard.js"></script>
-		<script src="js/const.js"></script>
-		<script src="js/level.js"></script>
-		<script src="js/crackAnimation.js"></script>
-		<script src="js/prop.js"></script>
-		<script src="js/bullet.js"></script>
-		<script src="js/tank.js"></script>
-		<script src="js/num.js"></script>
-		<script src="js/menu.js"></script>
-		<script src="js/map.js"></script>
-		<script src="js/Collision.js"></script>
-		<script src="js/stage.js"></script>
-		<script src="js/main.js"></script>
-		<link rel="stylesheet" type="text/css" href="css/default.css" />
-		<style type="text/css">
-			#canvasDiv canvas{
-				position:absolute;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="container" style="margin-left: 35%;">
-			<head><h3 style="width:512px">操作说明：玩家1：wasd上左下右，space射击；
-				玩家2：方向键，enter射击。n下一关，p上一关。</h3><br/><h3 id="hre"><a href="./test/app/home.html">点击查看HTML5（移动窗口）：</a></h3></head>
-			<div class="main clearfix">
-				<div id="canvasDiv" >
-					<canvas id="wallCanvas" ></canvas> 
-					<canvas id="tankCanvas" ></canvas>
-					<canvas id="grassCanvas" ></canvas>
-					<canvas id="overCanvas" ></canvas> 
-					<canvas id="stageCanvas" ></canvas>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />	
+	<title>亿安商贸</title>
+	<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+</head>
+<body class="loading-process">
+<div class="loading">
+	<div class="loading-circle"></div>
+	<div class="loading-avatar"><img src="images/avatar@2x.jpg" alt="" width="100" height="100"></div>
+	<div class="loading-info">亿安商贸城加载中...</div>
+</div>
+<div class="section-header">
+	<div class="section">
+		<nav class="nav" role="navigation">
+			<ul>
+				<li class="nav-about fade fade1"><a href="#about">关于</a></li>
+				<li class="nav-works fade fade4"><a href="#works">产品</a></li>
+				<li class="fade back-home"><a href="#top">首页</a></li>
+				<li class="nav-skill fade fade2"><a href="#skill">业务</a></li>
+				<li class="nav-contact fade fade3"><a href="#contact">联系</a></li>
+			</ul>
+		</nav>
+	</div>
+	<div class="nav-bg"></div>
+</div>
+<div class="home-bg">
+	<img src="images/home-bg.jpg" alt="" width="1000" height="667">
+</div>
+<div class="section-wrap section-fristpage" data-slide="1"  >
+	<div class="section">
+		<div class="section-content">
+			<p class="fade fade1">欢迎光临亿安商贸</p>
+			<p class="fade fade2">商贸简介</p>
+			<p class="fade fade3">向下滚动,了解更多</p>
+		</div>
+		<a class="button2 scroll-tip fade fade4" data-slide="3" title="">向下滚动</a>
+	</div>
+</div>
+<div id="about" data-slide="2" data-stellar-background-ratio="0.3" class="section-wrap section-about">
+	<div class="section">
+		<div class="about-content clearfix section-content">
+			<div class="introli">
+			  <span class="left_icon"><img class="bio-text bio-icon-1" src="images/bio-icon-1.png" data-stellar-ratio="0.7" ></span>
+			  <span class="right_content "><img class="bio-text bio-text-1" src="images/bio-text-1.png" data-stellar-ratio="0.7" ></span>
+			</div>
+			<div class="introli">
+			  <span class="left_icon"><img class="bio-text bio-icon-2" src="images/bio-icon-2.png" data-stellar-ratio="0.7" ></span>
+			  <span class="right_content"><img class="bio-text bio-text-2" src="images/bio-text-2.png" data-stellar-ratio="0.7" ></span>
+			</div>
+			<div class="introli">
+			  <span class="left_icon"><img class="bio-text bio-icon-3" src="images/bio-icon-3.png" data-stellar-ratio="0.7" ></span>
+			  <span class="right_content"><img class="bio-text bio-text-3" src="images/bio-text-3.png" data-stellar-ratio="0.7" ></span>
+			</div>
+
+		</div>
+
+	</div>
+	<a class="button2 dark-button2 scroll-tip" style="background-position:0 -60px;" data-slide="3" title=""></a>
+</div>
+<div id="works" class="section-wrap section-works" data-slide="3" >
+	<div class="section">
+		<div class="works-content section-content">
+			<h1>产品</h1>
+			<div class="works-list clearfix">
+				<div class="works-item first fade fade1">
+					<a href="#" target="_blank">
+						<img src="images/works/yizaojia.jpg" alt="" width="300" height="180">
+						<div class="work-info">
+							<h2>牛</h2>
+							<p><strong>品牌</strong>：科尔沁<br>
+							<strong>产品</strong>：肉、肚、宝</p>
+						</div>
+					</a>
+				</div>
+				<div class="works-item fade fade2">
+					<a href="#" target="_blank">
+						<img src="images/works/91zaojia.jpg" alt="" width="300" height="180">
+						<div class="work-info">
+							<h2>羊</h2>
+							<p><strong>品牌</strong>：科尔沁<br>
+							<strong>产品</strong>：肉、肚、宝</p>
+						</div>
+					</a>
+				</div>
+				<div class="works-item fade fade3">
+					<a href="#" target="_blank">
+						<img src="images/works/wenku.jpg" alt="" width="300" height="180">
+						<div class="work-info">
+							<h2>猪</h2>
+							<p><strong>品牌</strong>：科尔沁<br>
+							<strong>产品</strong>：肉、肚、宝</p>
+						</div>
+					</a>
+				</div>
+				<div class="works-item first fade fade4">
+					<a href="#" target="_blank">
+						<img src="images/works/shinedeliver.jpg" alt="" width="300" height="180">
+						<div class="work-info">
+							<h2>驴</h2>
+							<p><strong>品牌</strong>：科尔沁<br>
+							<strong>产品</strong>：肉、肚、宝</p>
+						</div>
+					</a>
+				</div>
+				<div class="works-item fade fade2">
+					<a>
+						<img src="images/works/wxshop.jpg" alt="" width="300" height="180">
+						<div class="work-info">
+							<h2>马</h2>
+							<p><strong>品牌</strong>：科尔沁<br>
+							<strong>产品</strong>：肉、肚、宝</p>
+						</div>
+					</a>
 				</div>
 			</div>
 			
-		</div><!-- /container -->
+		</div>
+		<a class="button2 scroll-tip fade fade4" data-slide="4" title="">向下滚动</a>
+	</div>
+</div>
+<div id="skill" class="section-wrap section-skill" data-slide="4">
+	<div class="section">
+		<div class="skill-content section-content">
+			<h1>相关业务</h1>
+			<ul>
+				<li class="fade fade1">牛。</li>
+				<li class="fade fade3">羊。</li>
+				<li class="fade fade2">猪。</li>
+				
+			</ul>
+		</div>
+	</div>
+	<a class="button2 scroll-tip fade fade4"  data-slide="5" title="">向下滚动</a>
+</div>
+<div id="contact" class="section-wrap section-contact" data-slide="5">
+	<div class="section">
+		<div class="contact-content clearfix section-content">
+			<h1>刘振德:13515838373010</h1>
+			<div class="left">
+				<div class="contact-ways fade fade1">
+					<h2>微信：########</h2>
+					<ul>
+						<li>邮箱：	</li>
+						<li>Q Q ：</li>
+						
+						
+					</ul>
+				</div>
+				<div class="contact-info fade fade2">
+					<p>欢迎关注哦！</p>
+				</div>
+			</div>
+			<div class="right fade fade3">
+				<h2>老板寄语</h2>
+				<p>如果你有牛羊的需求，可以联系我，目前我主要做：</p>
+				<ul>
+					<li>1</li>
+					<li>2</li>
+					<li>3</li>
+					<li>4</li>
+				</ul>
+				
+			</div>
+		</div>
+	</div>
+	<a class="button2 button2-2-top scroll-tip" id="gototops" data-slide="1" href="#top" style="background-position: -60px 0;width:80px;height:80px;" title=""></a>
+</div>
 
+<div class="overlay"></div>
+<div class="state-indicator"></div>
 
-	</body>
-	<script>
-		$("#hre").click(function(){
-  			alert('web前端-刘振刚-Email:qilu360@163.com');
-		});
-		console.log('web前端-刘振刚-Email:qilu360@163.com');
-	</script>
-		
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<script src="js/global.js"></script>
+<script src="js/waypoints.min.js"></script>
+<script src="js/js.js"></script>
+<script src="js/jquery.stellar.min.js"></script>
+
+</body>
 </html>
+
