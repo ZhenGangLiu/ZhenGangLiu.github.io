@@ -1,0 +1,1375 @@
+﻿<html lang="zh-CN"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="亿之安食品专注牛羊肉供应链服务，提供冻品批发、羊肉批发、烧烤食材一站式采购。作为源头厂家直供农贸批发市场及餐饮企业，构建高效生鲜供应链体系，确保餐饮食材新鲜直达，助力烧烤食材成本优化与品质提升。">
+    <meta name="keywords" content="冻品批发,羊肉批发,牛羊肉采购,餐饮食材,生鲜供应链,农贸批发,烧烤食材,源头厂家,亿之安食品,牛羊肉供应链">
+    <title>亿安生鲜 - 冻品批发/羊肉批发/火锅食材/牛羊肉供应链</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Anime.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;700&display=swap');
+        
+        :root {
+            --primary-color: #2D5A27;
+            --secondary-color: #7FB069;
+            --accent-color: #E67E22;
+            --bg-color: #FEFEFE;
+            --text-color: #2C3E50;
+            --text-secondary: #5D6D7E;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', serif;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, rgba(45, 90, 39, 0.9), rgba(127, 176, 105, 0.8)), url('https://p3-doubao-search-sign.byteimg.com/tos-cn-i-be4g95zd3a/1550142749007151116~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1782176575&x-signature=Bf5mgzVvGjaGJZ%2BvUs0v%2F3q0yfI%3D') center/cover no-repeat;
+            height: 100vh;
+            position: relative;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+        }
+        
+        .product-card {
+            overflow: hidden;
+        }
+        
+        .product-card img {
+            transition: transform 0.5s ease;
+        }
+        
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: #1e3a1b;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #6a9058;
+            transform: translateY(-2px);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent-color);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-accent:hover {
+            background-color: #d35400;
+            transform: translateY(-2px);
+        }
+        
+        .counter {
+            font-variant-numeric: tabular-nums;
+        }
+        
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-20px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+        }
+        
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        .testimonial-card {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        
+        .testimonial-card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .hero-section {
+                height: 70vh;
+            }
+            
+            .desktop-nav {
+                display: none;
+            }
+            
+            .mobile-nav {
+                display: block;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .desktop-nav {
+                display: flex;
+            }
+            
+            .mobile-nav {
+                display: none;
+            }
+        }
+        
+        /* 加载动画 */
+        .loader {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary-color);
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 滚动动画 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* 3D产品展示 */
+        .product-3d-container {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        
+        /* 骨架屏 */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+        }
+        
+        @keyframes skeleton-loading {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header class="fixed top-0 left-0 w-full bg-white bg-opacity-95 shadow-md z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/b3095a873ccf4909a15a85d817972040~tplv-a9rns2rl98-image.image?rcl=20251225090239A20945F45812481342E0&amp;rk3s=8e244e95&amp;rrcfp=f06b921b&amp;x-expires=1769216610&amp;x-signature=8vU%2B%2Bg8W%2B53UGx916K6pmSrUwYA%3D" alt="亿之安食品有限公司" class="h-12 mr-3">
+                    <div>
+                        <h1 class="text-xl font-bold text-green-800">亿之安食品有限公司</h1>
+                        <p class="text-xs text-gray-600">专注牛羊食品供应链，大宗冻品批发，冷链全国速达</p>
+                    </div>
+                </div>
+                
+                <!-- 桌面导航 -->
+                <nav class="desktop-nav">
+                    <ul class="flex space-x-8">
+                        <li><a href="#home" class="nav-link font-medium">首页</a></li>
+                        <li><a href="#about" class="nav-link font-medium">关于我们</a></li>
+                        <li><a href="#products" class="nav-link font-medium">产品中心</a></li>
+                        <li><a href="#advantages" class="nav-link font-medium">核心优势</a></li>
+                        <li><a href="#testimonials" class="nav-link font-medium">客户评价</a></li>
+                        <li><a href="#contact" class="nav-link font-medium">联系我们</a></li>
+                    </ul>
+                </nav>
+                
+                <!-- 联系电话 -->
+                <div class="hidden md:flex items-center">
+                    <i class="fas fa-phone-alt text-green-700 mr-2"></i>
+                    <span class="font-bold text-green-700">18866161399<br>15838373010</span>
+                </div>
+                
+                <!-- 移动端菜单按钮 -->
+                <button class="mobile-nav text-green-800 focus:outline-none" id="menu-toggle">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- 移动端菜单 -->
+    <div class="mobile-menu fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-50 p-5" id="mobile-menu">
+        <div class="flex justify-between items-center mb-8">
+            <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/b3095a873ccf4909a15a85d817972040~tplv-a9rns2rl98-image.image?rcl=20251225090239A20945F45812481342E0&amp;rk3s=8e244e95&amp;rrcfp=f06b921b&amp;x-expires=1769216610&amp;x-signature=8vU%2B%2Bg8W%2B53UGx916K6pmSrUwYA%3D" alt="亿之安食品有限公司" class="h-10">
+            <button class="text-green-800 focus:outline-none" id="close-menu">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <nav>
+            <ul class="space-y-4">
+                <li><a href="#home" class="block py-2 px-4 hover:bg-green-50 rounded">首页</a></li>
+                <li><a href="#about" class="block py-2 px-4 hover:bg-green-50 rounded">关于我们</a></li>
+                <li><a href="#products" class="block py-2 px-4 hover:bg-green-50 rounded">产品中心</a></li>
+                <li><a href="#advantages" class="block py-2 px-4 hover:bg-green-50 rounded">核心优势</a></li>
+                <li><a href="#testimonials" class="block py-2 px-4 hover:bg-green-50 rounded">客户评价</a></li>
+                <li><a href="#contact" class="block py-2 px-4 hover:bg-green-50 rounded">联系我们</a></li>
+            </ul>
+        </nav>
+        <div class="mt-8 pt-4 border-t">
+            <div class="flex items-center">
+                <i class="fas fa-phone-alt text-green-700 mr-2"></i>
+                <span class="font-bold text-green-700">18866161399<br>15838373010</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 遮罩层 -->
+    <div class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden" id="overlay"></div>
+    
+    <!-- 英雄区域 -->
+    <section id="home" class="hero-section flex items-center justify-center relative">
+        <canvas id="hero-canvas"></canvas>
+        <div class="container mx-auto px-4 z-10 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 opacity-0" id="hero-title">亿安生鲜 - 亿之安食品有限公司</h1>
+            <p class="text-xl md:text-2xl text-white mb-8 max-w-3xl mx-auto opacity-0" id="hero-subtitle">致力于为全国农贸市场批发商、连锁餐饮、食品加工厂、商超等提供稳定、优质、平价的生鲜食材保障服务</p>
+            <div class="flex flex-col md:flex-row justify-center gap-4 opacity-0" id="hero-buttons">
+                <a href="#products" class="btn-primary px-8 py-3 rounded-full text-white font-medium text-lg shadow-lg hover:shadow-xl transition-all">
+                    浏览产品
+                </a>
+                <a href="#contact" class="btn-secondary px-8 py-3 rounded-full text-white font-medium text-lg shadow-lg hover:shadow-xl transition-all">
+                    联系我们
+                </a>
+            </div>
+        </div>
+        <div class="scroll-indicator text-white">
+            <i class="fas fa-chevron-down text-2xl"></i>
+        </div>
+    </section>
+    
+    <!-- 关于我们 -->
+    <section id="about" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-green-800 mb-4 fade-in">关于亿之安</h2>
+                <div class="w-24 h-1 bg-green-600 mx-auto mb-6 fade-in"></div>
+                <p class="text-gray-600 max-w-3xl mx-auto fade-in">亿之安专注全国牛羊肉食品供应链，深耕多年，依托内蒙/新疆/新西兰/澳大利亚优质牧场直供 + 主品类自营 + 物流中心城市大型冷仓，保障优质产品稳定供应</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in">
+                    <h3 class="text-2xl font-bold text-green-800 mb-4">公司定位</h3>
+                    <p class="text-gray-700 mb-6">专注全国牛羊肉冻品供应链，集「自营仓储 + 名厂直供 + 冷链物流」于一体，提供大宗冻品批发，全国冷链速达业务</p>
+                    
+                    <h3 class="text-2xl font-bold text-green-800 mb-4">服务对象</h3>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-600 mr-3"></i>
+                            <span>农贸市场批发商</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-600 mr-3"></i>
+                            <span>火锅/烧烤连锁餐饮</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-600 mr-3"></i>
+                            <span>大型商超/电商团购</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-600 mr-3"></i>
+                            <span>食品加工厂等</span>
+                        </li>
+                    </ul>
+                    
+                    <div class="flex flex-wrap gap-4">
+                        <div class="bg-white p-4 rounded-lg shadow-md text-center w-32">
+                            <div class="text-3xl font-bold text-green-700 counter" data-target="10000">0</div>
+                            <p class="text-sm text-gray-600">合作客户</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-md text-center w-32">
+                            <div class="text-3xl font-bold text-green-700 counter" data-target="300">0</div>
+                            <p class="text-sm text-gray-600">配送城市</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-md text-center w-32">
+                            <div class="text-3xl font-bold text-green-700 counter" data-target="1000">0</div>
+                            <p class="text-sm text-gray-600">仓储面积(㎡)</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4 fade-in">
+                    <img src="https://p3-doubao-search-sign.byteimg.com/tos-cn-i-be4g95zd3a/1550142749007151116~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&amp;x-expires=1782176575&amp;x-signature=Bf5mgzVvGjaGJZ%2BvUs0v%2F3q0yfI%3D" alt="牧场" class="rounded-lg shadow-lg h-48 w-full object-cover">
+                    <img src="https://p11-doubao-search-sign.byteimg.com/labis/2a48c630b2b2e8580b365ac7d9a751c7~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&amp;x-expires=1782176575&amp;x-signature=BHYq7%2BdOiFEE82vdvhhmAWjZhx0%3D" alt="冷库" class="rounded-lg shadow-lg h-48 w-full object-cover">
+                    <img src="https://p3-doubao-search-sign.byteimg.com/labis/5b51a16650767a6bf49e96e3ce975d22~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&amp;x-expires=1782176575&amp;x-signature=LPXbaMn7ivNqqiYzUkeowC520aw%3D" alt="冷链物流" class="rounded-lg shadow-lg h-48 w-full object-cover">
+                    <img src="https://p11-doubao-search-sign.byteimg.com/tos-cn-i-be4g95zd3a/1044751198543937544~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&amp;x-expires=1782176575&amp;x-signature=BqxzRA9sDIXOrHyIVSz%2FvcyKB3E%3D" alt="牛羊肉产品" class="rounded-lg shadow-lg h-48 w-full object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 产品中心 -->
+    <section id="products" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-green-800 mb-4 fade-in">品质好货 · 畅销清单</h2>
+                <div class="w-24 h-1 bg-green-600 mx-auto mb-6 fade-in"></div>
+                <p class="text-gray-600 max-w-3xl mx-auto fade-in">精选优质牛羊肉产品，源头直供，品质保证</p>
+            </div>
+            
+            <!-- 产品分类标签 -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12 fade-in">
+                <button class="product-filter-btn active px-6 py-2 rounded-full bg-green-700 text-white hover:bg-green-800 transition-all" data-category="all">全部产品</button>
+                <button class="product-filter-btn px-6 py-2 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 transition-all" data-category="lamb">羊肉系列</button>
+                <button class="product-filter-btn px-6 py-2 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 transition-all" data-category="beef">牛肉系列</button>
+                <button class="product-filter-btn px-6 py-2 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 transition-all" data-category="processed">加工产品</button>
+            </div>
+            
+            <!-- 产品搜索 -->
+            <div class="max-w-md mx-auto mb-12 fade-in">
+                <div class="relative">
+                    <input type="text" id="product-search" placeholder="搜索产品..." class="w-full px-5 py-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                    <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-green-700">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 产品列表 -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" id="product-list">
+                <!-- 产品卡片1 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden fade-in" data-category="lamb" data-name="原切羔羊肉卷">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/tos-cn-i-be4g95zd3a/1242478685243441181~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&amp;x-expires=1782176575&amp;x-signature=TOJjm8wG1rnH5AVV1ZIRK4DoAy4%3D" alt="原切羔羊肉卷" class="w-full h-full object-cover">
+                        <span class="absolute top-3 right-3 bg-green-600 text-white text-xs px-2 py-1 rounded-full">热销</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-bold text-green-800 mb-2">原切羔羊肉卷</h3>
+                        <p class="text-gray-600 text-sm">精选优质羔原切羔羊肉卷，肉质鲜嫩，营养丰富</p>
+                    </div>
+                </div>
+                
+                <!-- 产品卡片2 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden fade-in" data-category="lamb" data-name="十二肋法排">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/tos-cn-i-be4g95zd3a/1044751198543937544~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&amp;x-expires=1782176575&amp;x-signature=BqxzRA9sDIXOrHyIVSz%2FvcyKB3E%3D" alt="十二肋法排" class="w-full h-full object-cover">
+                        <span class="absolute top-3 right-3 bg-orange-500 text-white text-xs px-2 py-1 rounded-full">新品</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-bold text-green-800 mb-2">十二肋法排</h3>
+                        <p class="text-gray-600 text-sm">传统工艺制作，口感醇厚，即食方便</p>
+                    </div>
+                </div>
+                
+                <!-- 产品卡片3 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden fade-in" data-category="lamb" data-name="精选肉卷">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/tos-cn-i-be4g95zd3a/2099039114213064718~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&amp;x-expires=1782176575&amp;x-signature=WN3Irouk1C%2B%2Fg%2BGTrn6eRhjk1fc%3D" alt="精选肉卷" class="w-full h-full object-cover">
+                        <span class="absolute top-3 right-3 bg-green-600 text-white text-xs px-2 py-1 rounded-full">热销</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-bold text-green-800 mb-2">精选肉卷</h3>
+                        <p class="text-gray-600 text-sm">单只10-30斤，草原散养羔羊，肉质鲜嫩</p>
+                    </div>
+                </div>
+                
+                <!-- 产品卡片4 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden fade-in" data-category="lamb" data-name="羔羊肋排">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/tos-cn-i-be4g95zd3a/1044751172775313447~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&amp;x-expires=1782176575&amp;x-signature=RrnFs5ejzyutJRglFVPnguETTUQ%3D" alt="羔羊肋排" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-bold text-green-800 mb-2">羔羊肋排</h3>
+                        <p class="text-gray-600 text-sm">6-9片，10kg装，肉质鲜嫩，适合烧烤</p>
+                    </div>
+                </div>
+                
+                <!-- 产品卡片5 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden fade-in" data-category="beef" data-name="牛肉切块">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/218d8b2a963a4d2d8060b73a47d93772~tplv-a9rns2rl98-image.image?rcl=20251225090239A20945F45812481342E0&amp;rk3s=8e244e95&amp;rrcfp=f06b921b&amp;x-expires=1769216607&amp;x-signature=jghlhThPy8cN3Y7T%2Fs8oJ2QdE38%3D" alt="牛肉切块" class="w-full h-full object-cover">
+                        <span class="absolute top-3 right-3 bg-blue-500 text-white text-xs px-2 py-1 rounded-full">推荐</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-bold text-green-800 mb-2">牛肉切块</h3>
+                        <p class="text-gray-600 text-sm">精选黄牛肉，肉质细腻，适合火锅</p>
+                    </div>
+                </div>
+                
+                <!-- 产品卡片6 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden fade-in" data-category="processed" data-name="精选肉卷">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/tos-cn-i-be4g95zd3a/1242478685243441181~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&amp;x-expires=1782176575&amp;x-signature=TOJjm8wG1rnH5AVV1ZIRK4DoAy4%3D" alt="精选肉卷" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-bold text-green-800 mb-2">精选肉卷</h3>
+                        <p class="text-gray-600 text-sm">1斤4只，10kg装，传统美食，口感独特</p>
+                    </div>
+                </div>
+                
+                <!-- 产品卡片7 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden fade-in" data-category="lamb" data-name="法排">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/tos-cn-i-be4g95zd3a/1044751198543937544~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&amp;x-expires=1782176575&amp;x-signature=BqxzRA9sDIXOrHyIVSz%2FvcyKB3E%3D" alt="法排" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-bold text-green-800 mb-2">法排</h3>
+                        <p class="text-gray-600 text-sm">6-10条，10kg装，肉质鲜嫩，适合烧烤</p>
+                    </div>
+                </div>
+                
+                <!-- 产品卡片8 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden fade-in" data-category="lamb" data-name="羊肉砖">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/tos-cn-i-be4g95zd3a/2099039114213064718~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&amp;x-expires=1782176575&amp;x-signature=WN3Irouk1C%2B%2Fg%2BGTrn6eRhjk1fc%3D" alt="羊肉砖" class="w-full h-full object-cover">
+                        <span class="absolute top-3 right-3 bg-green-600 text-white text-xs px-2 py-1 rounded-full">热销</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-bold text-green-800 mb-2">羊肉砖</h3>
+                        <p class="text-gray-600 text-sm">10kg装，羊蝎子，适合火锅炖煮</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 查看更多按钮 -->
+            <div class="text-center mt-12">
+                <button id="load-more" class="px-8 py-3 bg-green-700 text-white rounded-full hover:bg-green-800 transition-all shadow-lg">
+                    查看更多产品
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 当季精选产品推荐 -->
+    <section class="py-20 bg-gradient-to-r from-green-800 to-green-600 text-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 fade-in">当季精选产品</h2>
+                <div class="w-24 h-1 bg-white mx-auto mb-6 fade-in"></div>
+                <p class="max-w-3xl mx-auto fade-in">精选当季最优质的牛羊肉产品，为您的业务提供最佳选择</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- 精选产品1 -->
+                <div class="bg-white rounded-lg shadow-xl overflow-hidden fade-in">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/tos-cn-i-be4g95zd3a/1044751198543937544~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&amp;x-expires=1782176575&amp;x-signature=BqxzRA9sDIXOrHyIVSz%2FvcyKB3E%3D" alt="呼伦贝尔羔羊肉" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 text-green-800">
+                        <h3 class="text-xl font-bold mb-2">呼伦贝尔羔羊肉</h3>
+                        <p class="mb-4 text-gray-600">来自内蒙古呼伦贝尔草原的散养羔羊，肉质鲜嫩，口感极佳</p>
+                        <div class="flex items-center text-sm text-gray-600">
+                            <i class="fas fa-check-circle text-green-600 mr-2"></i>
+                            <span>产地：内蒙古呼伦贝尔</span>
+                        </div>
+                        <div class="flex items-center text-sm text-gray-600 mt-2">
+                            <i class="fas fa-check-circle text-green-600 mr-2"></i>
+                            <span>规格：10kg/箱</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 精选产品2 -->
+                <div class="bg-white rounded-lg shadow-xl overflow-hidden fade-in">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/tos-cn-i-be4g95zd3a/1044751172775313447~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&amp;x-expires=1782176575&amp;x-signature=RrnFs5ejzyutJRglFVPnguETTUQ%3D" alt="澳洲进口牛排" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 text-green-800">
+                        <h3 class="text-xl font-bold mb-2">澳洲进口牛排</h3>
+                        <p class="mb-4 text-gray-600">澳大利亚进口牛排，肉质细腻，大理石花纹丰富，适合高端餐饮</p>
+                        <div class="flex items-center text-sm text-gray-600">
+                            <i class="fas fa-check-circle text-green-600 mr-2"></i>
+                            <span>产地：澳大利亚</span>
+                        </div>
+                        <div class="flex items-center text-sm text-gray-600 mt-2">
+                            <i class="fas fa-check-circle text-green-600 mr-2"></i>
+                            <span>规格：200g/片，20片/箱</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 精选产品3 -->
+                <div class="bg-white rounded-lg shadow-xl overflow-hidden fade-in">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/tos-cn-i-be4g95zd3a/2099039114213064718~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&amp;x-expires=1782176575&amp;x-signature=WN3Irouk1C%2B%2Fg%2BGTrn6eRhjk1fc%3D" alt="新疆黑头羊" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 text-green-800">
+                        <h3 class="text-xl font-bold mb-2">新疆黑头羊</h3>
+                        <p class="mb-4 text-gray-600">新疆特产黑头羊，肉质紧实，味道鲜美，是烧烤的理想选择</p>
+                        <div class="flex items-center text-sm text-gray-600">
+                            <i class="fas fa-check-circle text-green-600 mr-2"></i>
+                            <span>产地：新疆</span>
+                        </div>
+                        <div class="flex items-center text-sm text-gray-600 mt-2">
+                            <i class="fas fa-check-circle text-green-600 mr-2"></i>
+                            <span>规格：整只，15-25kg/只</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 核心优势 -->
+    <section id="advantages" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-green-800 mb-4 fade-in">四大核心优势</h2>
+                <div class="w-24 h-1 bg-green-600 mx-auto mb-6 fade-in"></div>
+                <p class="text-gray-600 max-w-3xl mx-auto fade-in">为什么选择亿之安？我们用实力说话</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- 优势卡片1 -->
+                <div class="feature-card bg-white p-6 rounded-lg shadow-md text-center fade-in">
+                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-mountain text-green-700 text-3xl feature-icon"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-green-800 mb-3">源头牧场直供</h3>
+                    <p class="text-gray-600">依托内蒙、新疆优质牧场，以及新西兰、澳大利亚进口资源，从源头把控品质，拒绝中间商溢价。</p>
+                </div>
+                
+                <!-- 优势卡片2 -->
+                <div class="feature-card bg-white p-6 rounded-lg shadow-md text-center fade-in">
+                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-warehouse text-green-700 text-3xl feature-icon"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-green-800 mb-3">千吨级冷库现货</h3>
+                    <p class="text-gray-600">自营大型冷仓，库存充足，全年稳定供应，1件起批，灵活采购，满足不同客户需求。</p>
+                </div>
+                
+                <!-- 优势卡片3 -->
+                <div class="feature-card bg-white p-6 rounded-lg shadow-md text-center fade-in">
+                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-snowflake text-green-700 text-3xl feature-icon"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-green-800 mb-3">全程冷链护航</h3>
+                    <p class="text-gray-600">-18℃恒温冷藏，专业冷链物流，全国300+城市快速直达，确保新鲜到货。</p>
+                </div>
+                
+                <!-- 优势卡片4 -->
+                <div class="feature-card bg-white p-6 rounded-lg shadow-md text-center fade-in">
+                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-handshake text-green-700 text-3xl feature-icon"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-green-800 mb-3">一站式定制服务</h3>
+                    <p class="text-gray-600">根据客户需求提供产品定制、分切加工、包装设计等增值服务，让您省心省力。</p>
+                </div>
+            </div>
+            
+            <!-- 客户保障 -->
+            <div class="mt-20">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-green-800 mb-4 fade-in">四大客户保障</h2>
+                    <div class="w-24 h-1 bg-green-600 mx-auto mb-6 fade-in"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- 保障卡片1 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md flex fade-in">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                            <span class="text-green-700 font-bold text-xl">1</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-green-800 mb-2">价格透明</h3>
+                            <p class="text-gray-600">名厂直供，拒绝中间商溢价，给您最实惠的价格</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 保障卡片2 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md flex fade-in">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                            <span class="text-green-700 font-bold text-xl">2</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-green-800 mb-2">品质溯源</h3>
+                            <p class="text-gray-600">提供检疫合格相关报告，源头严格品控，品质有保障</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 保障卡片3 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md flex fade-in">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                            <span class="text-green-700 font-bold text-xl">3</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-green-800 mb-2">灵活采购</h3>
+                            <p class="text-gray-600">1件试单到上百吨长期订单均可承接，满足不同采购需求</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 保障卡片4 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md flex fade-in">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                            <span class="text-green-700 font-bold text-xl">4</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-green-800 mb-2">售后无忧</h3>
+                            <p class="text-gray-600">到货损坏/质量问题均可退换或赔付，让您购物无忧</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 配送流程 -->
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-green-800 mb-4 fade-in">配送流程</h2>
+                <div class="w-24 h-1 bg-green-600 mx-auto mb-6 fade-in"></div>
+                <p class="text-gray-600 max-w-3xl mx-auto fade-in">全程冷链，新鲜直达，让您安心选购</p>
+            </div>
+            
+            <div class="relative">
+                <!-- 连接线 -->
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-green-200 -translate-y-1/2 z-0"></div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
+                    <!-- 流程1 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center fade-in">
+                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-shopping-cart text-green-700 text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-green-800 mb-2">下单采购</h3>
+                        <p class="text-gray-600 text-sm">在线下单或电话订购，灵活便捷</p>
+                    </div>
+                    
+                    <!-- 流程2 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center fade-in">
+                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-box text-green-700 text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-green-800 mb-2">冷库拣货</h3>
+                        <p class="text-gray-600 text-sm">专业人员拣货，确保产品新鲜</p>
+                    </div>
+                    
+                    <!-- 流程3 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center fade-in">
+                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-truck text-green-700 text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-green-800 mb-2">冷链配送</h3>
+                        <p class="text-gray-600 text-sm">-18℃恒温运输，全程温控追踪</p>
+                    </div>
+                    
+                    <!-- 流程4 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center fade-in">
+                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-check-circle text-green-700 text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-green-800 mb-2">签收验收</h3>
+                        <p class="text-gray-600 text-sm">当面验收，确保产品质量</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 配送范围 -->
+            <div class="mt-20 bg-white p-8 rounded-lg shadow-lg fade-in">
+                <h3 class="text-2xl font-bold text-green-800 mb-6">配送范围</h3>
+                <!-- 高德地图配送网络展示 -->
+                <div class="relative h-80 md:h-96 bg-gray-100 rounded-lg overflow-hidden">
+                    <iframe src="./delivery-map.html" class="w-full h-full border-0" allowfullscreen="" loading="lazy">
+                    </iframe>
+                </div>
+                <div class="mt-6 text-center">
+                    <p class="text-gray-600">全国300+城市覆盖，更多城市持续拓展中...</p>
+                </div>
+                
+
+            </div>
+        </div>
+    </section>
+    
+    <!-- 客户评价 -->
+    <section id="testimonials" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-green-800 mb-4 fade-in">客户评价</h2>
+                <div class="w-24 h-1 bg-green-600 mx-auto mb-6 fade-in"></div>
+                <p class="text-gray-600 max-w-3xl mx-auto fade-in">听听我们的客户怎么说</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="testimonial-container">
+                <!-- 评价1 -->
+                <div class="testimonial-card bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="ml-2 text-gray-600">5.0</span>
+                    </div>
+                    <p class="text-gray-600 mb-6">"亿之安的牛羊肉质量非常好，价格也很实惠，我们餐厅一直在这里采购，客户反馈都很棒。"</p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-gray-300 rounded-full mr-3"></div>
+                        <div>
+                            <h4 class="font-bold">张总</h4>
+                            <p class="text-sm text-gray-500">某连锁火锅店老板</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评价2 -->
+                <div class="testimonial-card bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="ml-2 text-gray-600">5.0</span>
+                    </div>
+                    <p class="text-gray-600 mb-6">"冷链配送很专业，到货时产品还是冷冻状态，品质有保证，服务也很周到。"</p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-gray-300 rounded-full mr-3"></div>
+                        <div>
+                            <h4 class="font-bold">李总</h4>
+                            <p class="text-sm text-gray-500">某农贸市场批发商</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评价3 -->
+                <div class="testimonial-card bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="ml-2 text-gray-600">4.5</span>
+                    </div>
+                    <p class="text-gray-600 mb-6">"定制服务很贴心，根据我们的需求进行分切加工，节省了我们很多时间和成本。"</p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-gray-300 rounded-full mr-3"></div>
+                        <div>
+                            <h4 class="font-bold">王总</h4>
+                            <p class="text-sm text-gray-500">某食品加工厂负责人</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 评价控制按钮 -->
+            <div class="flex justify-center mt-8 gap-2">
+                <button class="w-3 h-3 rounded-full bg-green-700 testimonial-dot active" data-index="0"></button>
+                <button class="w-3 h-3 rounded-full bg-gray-300 testimonial-dot" data-index="1"></button>
+                <button class="w-3 h-3 rounded-full bg-gray-300 testimonial-dot" data-index="2"></button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 联系我们 -->
+    <section id="contact" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-green-800 mb-4 fade-in">联系我们</h2>
+                <div class="w-24 h-1 bg-green-600 mx-auto mb-6 fade-in"></div>
+                <p class="text-gray-600 max-w-3xl mx-auto fade-in">亿之安食品有限公司竭诚为您服务</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- 联系信息展示 -->
+                <div class="bg-white p-8 rounded-lg shadow-md fade-in">
+                    <h3 class="text-2xl font-bold text-green-800 mb-6">业务咨询</h3>
+                    <p class="text-gray-600 mb-6">如果您对我们的产品感兴趣，或有任何疑问，请通过以下方式联系我们，我们的业务经理将尽快与您取得联系。</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-phone-alt text-green-700 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 mb-1">业务咨询热线</h4>
+                                <p class="text-green-700 font-bold text-lg">18866161399<br>15838373010</p>
+                                <p class="text-gray-500 text-sm">周一至周日 9:00-18:00</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-envelope text-green-700 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 mb-1">业务邮箱</h4>
+                                <p class="text-green-700 font-bold">qilu360@163.com</p>
+                                <p class="text-gray-500 text-sm">我们将在1个工作日内回复您</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-map-marker-alt text-green-700 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 mb-1">公司地址</h4>
+                                <p class="text-gray-600">河南省郑州市万邦国际冻品区D+16区11号</p>
+                                <p class="text-gray-500 text-sm">欢迎前来参观考察</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-clock text-green-700 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 mb-1">营业时间</h4>
+                                <p class="text-gray-600">周一至周日 9:00-18:00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 二维码 -->
+                <div class="bg-white p-8 rounded-lg shadow-md text-center fade-in">
+                    <h3 class="text-2xl font-bold text-green-800 mb-6">扫码关注公众号</h3>
+                    <div class="w-64 h-64 mx-auto mb-6 overflow-hidden rounded-lg shadow-lg">
+                        <img src="https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/509071187b9543fcad94736853f6f682.jpg~tplv-a9rns2rl98-24:720:720.image?rcl=20251225133920C5FBFBF76686B445B9FF&amp;rk3s=8e244e95&amp;rrcfp=8a172a1a&amp;x-expires=1767245960&amp;x-signature=v8PPPcNIxqNZqSJmGJbHeglejM0%3D" alt="公众号二维码" class="w-full h-full object-cover">
+                    </div>
+                    <p class="text-gray-600">获取更多优惠信息和产品动态</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 页脚 -->
+    <footer class="bg-green-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- 公司信息 -->
+                <div>
+                    <div class="flex items-center mb-4">
+                        <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/b3095a873ccf4909a15a85d817972040~tplv-a9rns2rl98-image.image?rcl=20251225090239A20945F45812481342E0&amp;rk3s=8e244e95&amp;rrcfp=f06b921b&amp;x-expires=1769216610&amp;x-signature=8vU%2B%2Bg8W%2B53UGx916K6pmSrUwYA%3D" alt="亿之安食品有限公司" class="h-10 mr-3">
+                        <div>
+                            <h3 class="text-lg font-bold">亿之安食品</h3>
+                            <p class="text-xs text-gray-300">专注牛羊食品供应链</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4">亿之安专注全国牛羊肉食品供应链，深耕多年，依托优质牧场直供，为您提供高品质的生鲜冻品。</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white hover:text-gray-300"><i class="fab fa-weixin text-xl"></i></a>
+                        <a href="#" class="text-white hover:text-gray-300"><i class="fab fa-weibo text-xl"></i></a>
+                        <a href="#" class="text-white hover:text-gray-300"><i class="fab fa-qq text-xl"></i></a>
+                    </div>
+                </div>
+                
+                <!-- 快速链接 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">快速链接</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-300 hover:text-white">首页</a></li>
+                        <li><a href="#about" class="text-gray-300 hover:text-white">关于我们</a></li>
+                        <li><a href="#products" class="text-gray-300 hover:text-white">产品中心</a></li>
+                        <li><a href="#advantages" class="text-gray-300 hover:text-white">核心优势</a></li>
+                        <li><a href="#testimonials" class="text-gray-300 hover:text-white">客户评价</a></li>
+                        <li><a href="#contact" class="text-gray-300 hover:text-white">联系我们</a></li>
+                    </ul>
+                </div>
+                
+                <!-- 产品分类 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">产品分类</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white">羊肉系列</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">牛肉系列</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">加工产品</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">烧烤食材</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">火锅食材</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">定制服务</a></li>
+                    </ul>
+                </div>
+                
+                <!-- 联系信息 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">联系我们</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-green-400"></i>
+                            <span class="text-gray-300">河南省郑州市万邦国际冻品区D+16区11号</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-3 text-green-400"></i>
+                            <span class="text-gray-300">18866161399<br>15838373010</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-3 text-green-400"></i>
+                            <span class="text-gray-300">qilu360@163.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-clock mt-1 mr-3 text-green-400"></i>
+                            <span class="text-gray-300">周一至周日 9:00-18:00</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-green-700 mt-8 pt-8 text-center">
+                <p class="text-gray-400">© 2025 亿之安食品有限公司 版权所有</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-green-700 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    
+
+    
+    <script>
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 英雄区域动画
+            setTimeout(() => {
+                document.getElementById('hero-title').style.opacity = '1';
+                document.getElementById('hero-title').style.transform = 'translateY(0)';
+            }, 300);
+            
+            setTimeout(() => {
+                document.getElementById('hero-subtitle').style.opacity = '1';
+                document.getElementById('hero-subtitle').style.transform = 'translateY(0)';
+            }, 600);
+            
+            setTimeout(() => {
+                document.getElementById('hero-buttons').style.opacity = '1';
+                document.getElementById('hero-buttons').style.transform = 'translateY(0)';
+            }, 900);
+            
+            // 导航栏滚动效果
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('py-2');
+                    navbar.classList.remove('py-3');
+                } else {
+                    navbar.classList.add('py-3');
+                    navbar.classList.remove('py-2');
+                }
+            });
+            
+            // 移动端菜单
+            const menuToggle = document.getElementById('menu-toggle');
+            const closeMenu = document.getElementById('close-menu');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('overlay');
+            
+            menuToggle.addEventListener('click', function() {
+                mobileMenu.classList.add('active');
+                overlay.classList.remove('hidden');
+            });
+            
+            closeMenu.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                overlay.classList.add('hidden');
+            });
+            
+            overlay.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                overlay.classList.add('hidden');
+                cartSidebar.classList.remove('translate-x-0');
+                cartSidebar.classList.add('translate-x-full');
+            });
+            
+            // 平滑滚动
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // 关闭移动菜单
+                    mobileMenu.classList.remove('active');
+                    overlay.classList.add('hidden');
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // 滚动动画
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeInObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        fadeInObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            fadeElements.forEach(element => {
+                fadeInObserver.observe(element);
+            });
+            
+            // 数字增长动画
+            const counters = document.querySelectorAll('.counter');
+            
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = parseInt(entry.target.getAttribute('data-target'));
+                        let count = 0;
+                        const increment = target / 50;
+                        const duration = 2000;
+                        const interval = duration / 50;
+                        
+                        const timer = setInterval(() => {
+                            count += increment;
+                            if (count >= target) {
+                                entry.target.textContent =`${target}+`;
+                                clearInterval(timer);
+                            } else {
+                                entry.target.textContent = `${Math.floor(count)}+`;
+                            }
+                        }, interval);
+                        
+                        counterObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            counters.forEach(counter => {
+                counterObserver.observe(counter);
+            });
+            
+            // 产品筛选
+            const filterButtons = document.querySelectorAll('.product-filter-btn');
+            const productCards = document.querySelectorAll('.product-card');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // 移除所有按钮的active类
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('active', 'bg-green-700', 'text-white');
+                        btn.classList.add('bg-gray-200', 'text-gray-700');
+                    });
+                    
+                    // 添加当前按钮的active类
+                    this.classList.add('active', 'bg-green-700', 'text-white');
+                    this.classList.remove('bg-gray-200', 'text-gray-700');
+                    
+                    const category = this.getAttribute('data-category');
+                    
+                    productCards.forEach(card => {
+                        if (category === 'all' || card.getAttribute('data-category') === category) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // 产品搜索
+            const productSearch = document.getElementById('product-search');
+            
+            productSearch.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                
+                productCards.forEach(card => {
+                    const productName = card.getAttribute('data-name').toLowerCase();
+                    
+                    if (productName.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+            
+            // 加载更多产品
+            const loadMoreBtn = document.getElementById('load-more');
+            let isLoading = false;
+            
+            loadMoreBtn.addEventListener('click', function() {
+                if (isLoading) return;
+                
+                isLoading = true;
+                loadMoreBtn.innerHTML = '<div class="loader mx-auto"></div>';
+                
+                // 模拟加载延迟
+                setTimeout(() => {
+                    loadMoreBtn.innerHTML = '没有更多产品了';
+                    loadMoreBtn.disabled = true;
+                    loadMoreBtn.classList.add('bg-gray-500', 'cursor-not-allowed');
+                    loadMoreBtn.classList.remove('bg-green-700', 'hover:bg-green-800');
+                    isLoading = false;
+                }, 1500);
+            });
+            
+            // 客户评价轮播
+            const testimonialCards = document.querySelectorAll('.testimonial-card');
+            const testimonialDots = document.querySelectorAll('.testimonial-dot');
+            let currentTestimonial = 0;
+            
+            function showTestimonial(index) {
+                testimonialCards.forEach((card, i) => {
+                    if (i === index) {
+                        card.classList.add('show');
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    } else {
+                        card.classList.remove('show');
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                    }
+                });
+                
+                testimonialDots.forEach((dot, i) => {
+                    if (i === index) {
+                        dot.classList.add('bg-green-700');
+                        dot.classList.remove('bg-gray-300');
+                    } else {
+                        dot.classList.remove('bg-green-700');
+                        dot.classList.add('bg-gray-300');
+                    }
+                });
+                
+                currentTestimonial = index;
+            }
+            
+            testimonialDots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    showTestimonial(index);
+                });
+            });
+            
+            // 自动轮播
+            setInterval(() => {
+                const nextIndex = (currentTestimonial + 1) % testimonialCards.length;
+                showTestimonial(nextIndex);
+            }, 5000);
+            
+            
+            
+            // 返回顶部按钮
+            const backToTopBtn = document.getElementById('back-to-top');
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    backToTopBtn.classList.remove('opacity-0', 'invisible');
+                    backToTopBtn.classList.add('opacity-100', 'visible');
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'invisible');
+                    backToTopBtn.classList.remove('opacity-100', 'visible');
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+    
+            
+            // 英雄区域背景动画
+            function initHeroBackground() {
+                const canvas = document.getElementById('hero-canvas');
+                const ctx = canvas.getContext('2d');
+                
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                
+                // 创建粒子
+                const particles = [];
+                const particleCount = 100;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        radius: Math.random() * 2 + 1,
+                        color: `rgba(255, 255, 255, ${Math.random() * 0.5 + 0.1})`,
+                        speedX: Math.random() * 0.5 - 0.25,
+                        speedY: Math.random() * 0.5 - 0.25
+                    });
+                }
+                
+                // 动画循环
+                function animate() {
+                    requestAnimationFrame(animate);
+                    
+                    // 清除画布
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    // 更新和绘制粒子
+                    particles.forEach(particle => {
+                        particle.x += particle.speedX;
+                        particle.y += particle.speedY;
+                        
+                        // 边界检查
+                        if (particle.x < 0 || particle.x > canvas.width) {
+                            particle.speedX = -particle.speedX;
+                        }
+                        
+                        if (particle.y < 0 || particle.y > canvas.height) {
+                            particle.speedY = -particle.speedY;
+                        }
+                        
+                        // 绘制粒子
+                        ctx.beginPath();
+                        ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+                        ctx.fillStyle = particle.color;
+                        ctx.fill();
+                    });
+                    
+                    // 连接临近粒子
+                    connectParticles();
+                }
+                
+                // 连接临近的粒子
+                function connectParticles() {
+                    for (let i = 0; i < particles.length; i++) {
+                        for (let j = i + 1; j < particles.length; j++) {
+                            const dx = particles[i].x - particles[j].x;
+                            const dy = particles[i].y - particles[j].y;
+                            const distance = Math.sqrt(dx * dx + dy * dy);
+                            
+                            if (distance < 100) {
+                                ctx.beginPath();
+                                ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * (1 - distance / 100)})`;
+                                ctx.lineWidth = 0.5;
+                                ctx.moveTo(particles[i].x, particles[i].y);
+                                ctx.lineTo(particles[j].x, particles[j].y);
+                                ctx.stroke();
+                            }
+                        }
+                    }
+                }
+                
+                // 启动动画
+                animate();
+                
+                // 响应窗口大小变化
+                window.addEventListener('resize', function() {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                });
+            }
+            
+            // 初始化英雄区域背景动画
+            initHeroBackground();
+            
+    
+        });
+        
+
+    </script>
+
+</body></html>

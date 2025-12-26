@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>郑州市业务覆盖全国城市地图</title>
+  <style>
+    html,
+    body,
+    #map {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-weight: 500;
+      color: #fff;
+      background-color: #000;
+      position: relative;
+    }
+
+    .demo-title {
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      z-index: 1;
+      background: rgba(0,0,0,0.5);
+      padding: 10px 20px;
+      border-radius: 8px;
+    }
+
+    h1 {
+      font-size: 20px;
+      margin: 0;
+      color: #12bfbf;
+    }
+
+    h3 {
+      font-size: 14px;
+      font-weight: normal;
+      margin-top: 5px;
+      color: #ccc;
+    }
+  </style>
+  <script>
+    window._AMapSecurityConfig = {
+      securityJsCode: "77fa88649a61f3e8e1946c1bd2f39df8",
+    };
+  </script>
+</head>
+
+<body>
+  <div id="map"></div>
+  <div class="demo-title">
+    <h1>业务覆盖地图</h1>
+    <h3>全国300+主要城市冷链速达</h3>
+  </div>
+
+  <!-- 替换为你的高德API Key -->
+  <script src="https://webapi.amap.com/maps?v=2.0&key=19643db77de4fad32c2d0adfcd81c617"></script>
+  <script src="https://webapi.amap.com/loca?v=2.0.0&key=19643db77de4fad32c2d0adfcd81c617"></script>
+  <script>
+    // ===================== 核心配置 =====================
+    // 郑州经纬度
+    const ZHENGZHOU = [113.665412, 34.757975];
+    // 全国主要城市经纬度（可按需扩展）
+  
+const CITYS = [
+  { name: "北京", coords: [116.4074, 39.9042], type: 0 },
+  { name: "上海", coords: [121.4737, 31.2304], type: 0 },
+  { name: "广州", coords: [113.2644, 23.1291], type: 0 },
+  { name: "深圳", coords: [114.0579, 22.5431], type: 0 },
+  { name: "重庆", coords: [106.5049, 29.5332], type: 0 },
+  { name: "天津", coords: [117.3190, 39.8954], type: 0 },
+  { name: "成都", coords: [104.0665, 30.6592], type: 0 },
+  { name: "杭州", coords: [120.1551, 30.2797], type: 0 },
+  { name: "武汉", coords: [114.3055, 30.5928], type: 0 },
+  { name: "西安", coords: [108.9480, 34.2631], type: 0 },
+  { name: "南京", coords: [118.7969, 32.0603], type: 0 },
+  { name: "长沙", coords: [112.9822, 28.1940], type: 0 },
+  { name: "济南", coords: [117.0009, 36.6758], type: 0 },
+  { name: "青岛", coords: [120.3394, 36.0672], type: 1 },
+  { name: "厦门", coords: [118.1085, 24.4909], type: 1 },
+  { name: "大连", coords: [121.6201, 38.9136], type: 1 },
+  { name: "沈阳", coords: [123.4291, 41.7968], type: 1 },
+  { name: "哈尔滨", coords: [126.6424, 45.8038], type: 1 },
+  { name: "昆明", coords: [102.7122, 25.0406], type: 1 },
+  { name: "贵阳", coords: [106.7135, 26.5784], type: 1 },
+  { name: "南宁", coords: [108.3200, 22.8241], type: 1 },    // 广西首府
+  { name: "兰州", coords: [103.8343, 36.0611], type: 1 },    // 甘肃省会
+  { name: "太原", coords: [112.5492, 37.8570], type: 1 },    // 山西省会
+  { name: "西宁", coords: [101.7797, 36.6172], type: 1 },    // 青海省会（替换青海）
+  { name: "石家庄", coords: [114.5149, 38.0423], type: 1 },  // 河北省会
+  { name: "长春", coords: [125.3245, 43.8868], type: 1 } ,    // 吉林省会
+  { name: "乌鲁木齐", coords: [87.6168, 43.7939], type: 0 },
+  { name: "合肥", coords: [117.2830, 31.8612], type: 1 },
+  { name: "南昌", coords: [115.8921, 28.6768], type: 1 }
+];
+
+    // ===================== 初始化地图 =====================
+    var map = new AMap.Map('map', {
+      zoom: 4, // 初始缩放级别
+      pitch: 32, // 倾斜角度
+      showLabel: false, // 隐藏默认标签
+      viewMode: '3D', // 3D模式
+      center: ZHENGZHOU, // 中心点：郑州
+      mapStyle: 'amap://styles/dark', // 深色地图样式（可选：dark, darkblue, normal）
+    });
+
+    // 文字标签图层
+    var labelLayer = new AMap.LabelsLayer({
+      rejectMapMask: true,
+      collision: true,
+      animation: true,
+    });
+    map.add(labelLayer);
+
+    // ===================== 初始化Loca容器 =====================
+    var loca = new Loca.Container({ map });
+
+    // --------------------- 飞线图层 ---------------------
+    var linkLayer = new Loca.LinkLayer({
+      zIndex: 20,
+      opacity: 1,
+      visible: true,
+      zooms: [2, 22],
+    });
+
+    // --------------------- 散点图层（城市点） ---------------------
+    var scatterLayer1 = new Loca.ScatterLayer({ // 核心城市
+      zIndex: 10,
+      opacity: 1,
+      visible: true,
+      zooms: [2, 22],
+    });
+    var scatterLayer2 = new Loca.ScatterLayer({ // 次要城市
+      zIndex: 10,
+      opacity: 0.8,
+      visible: true,
+      zooms: [2, 22],
+    });
+
+    // --------------------- 郑州中心点高亮 ---------------------
+    var centerPoint = new Loca.GeoJSONSource({
+      data: {
+        type: 'FeatureCollection',
+        features: [{
+          type: 'Feature',
+          geometry: { type: 'Point', coordinates: ZHENGZHOU },
+        }],
+      },
+    });
+    var scatterLayer3 = new Loca.ScatterLayer({ zIndex: 15 });
+    scatterLayer3.setSource(centerPoint);
+    scatterLayer3.setStyle({
+      size: [200000, 200000], // 中心点大小（米）
+      unit: 'meter',
+      texture: 'https://a.amap.com/Loca/static/static/center-point.png', // 中心点图标
+    });
+    loca.add(scatterLayer3);
+
+    // ===================== 构建GeoJSON数据 =====================
+    // 1. 构建城市点的GeoJSON
+    function buildScatterGeoJSON() {
+      const features = CITYS.map(city => ({
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: city.coords },
+        properties: {
+          type: city.type,
+          country: city.name, // 标签显示的城市名
+          flagName: city.name
+        }
+      }));
+      // 追加郑州中心点
+      features.push({
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: ZHENGZHOU },
+        properties: { type: 0, country: '郑州', flagName: '郑州' }
+      });
+      return { type: 'FeatureCollection', features };
+    }
+
+    // 2. 构建郑州到各城市的飞线GeoJSON
+    function buildLinkGeoJSON() {
+      const features = CITYS.map(city => ({
+        type: 'Feature',
+        geometry: {
+          type: 'LineString',
+          coordinates: [ZHENGZHOU, city.coords] // 起点：郑州，终点：目标城市
+        },
+        properties: {
+          link: { type: city.type }, // 飞线类型（对应颜色）
+          distance: getDistance(ZHENGZHOU, city.coords) // 用于飞线高度计算
+        }
+      }));
+      return { type: 'FeatureCollection', features };
+    }
+
+    // 计算两点间距离（简化版，用于飞线高度）
+    function getDistance(p1, p2) {
+      const [lng1, lat1] = p1;
+      const [lng2, lat2] = p2;
+      const radLat1 = Math.PI * lat1 / 180;
+      const radLat2 = Math.PI * lat2 / 180;
+      const a = radLat1 - radLat2;
+      const b = Math.PI * lng1 / 180 - Math.PI * lng2 / 180;
+      let s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) +
+        Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
+      s = s * 6378137; // 地球半径
+      return s;
+    }
+
+    // 过滤GeoJSON（按type筛选）
+    function filterGeoJSON(json, type) {
+      return new Loca.GeoJSONSource({
+        data: {
+          type: 'FeatureCollection',
+          features: json.features.filter(item => item.properties.type === type)
+        }
+      });
+    }
+
+    // 设置城市文字标签
+    function setLabelsLayer(scatterGeoJSON) {
+      labelLayer.clear();
+      // 遍历所有城市点添加标签
+      scatterGeoJSON.features.forEach(item => {
+        var labelsMarker = new AMap.LabelMarker({
+          name: item.properties.flagName,
+          position: item.geometry.coordinates,
+          zooms: [2, 22],
+          opacity: 1,
+          zIndex: 10,
+          text: {
+            content: item.properties.country,
+            direction: 'bottom',
+            offset: [0, -5],
+            style: {
+              fontSize: 13,
+              fontWeight: 'normal',
+              fillColor: '#fff',
+              backgroundColor: 'rgba(0,0,0,0.3)',
+              padding: '2px 6px',
+              borderRadius: 2
+            },
+          },
+        });
+        labelLayer.add(labelsMarker);
+      });
+    }
+
+    // ===================== 渲染图层 =====================
+    // 1. 构建并渲染散点
+    const scatterGeoJSON = buildScatterGeoJSON();
+    setLabelsLayer(scatterGeoJSON);
+    scatterLayer1.setSource(filterGeoJSON(scatterGeoJSON, 0)); // 核心城市
+    scatterLayer2.setSource(filterGeoJSON(scatterGeoJSON, 1)); // 次要城市
+
+    // 核心城市散点样式（青绿色动效）
+    scatterLayer1.setStyle({
+      size: [300000, 300000],
+      unit: 'meter',
+      animate: true, // 呼吸动效
+      duration: 1500, // 动效周期
+      texture: 'https://a.amap.com/Loca/static/static/green.png',
+    });
+
+    // 次要城市散点样式（橙色动效）
+    scatterLayer2.setStyle({
+      size: [250000, 250000],
+      unit: 'meter',
+      animate: true,
+      duration: 2000,
+      texture: 'https://a.amap.com/Loca/static/static/orange.png',
+    });
+
+    // 2. 构建并渲染飞线
+    const linkGeoJSON = buildLinkGeoJSON();
+    linkLayer.setSource(new Loca.GeoJSONSource({ data: linkGeoJSON }));
+    linkLayer.setStyle({
+      // 飞线颜色：核心城市(0)=青蓝渐变，次要城市(1)=橙红渐变
+      lineColors: (index, item) => item.link.properties.link.type === 0 
+        ? ['#25CDEA', '#12BFBF'] 
+        : ['#FFD87B', '#FF4F00'],
+      // 飞线高度（按距离比例）
+      height: (index, item) => item.distance / 4,
+      // 飞线平滑度
+      smoothSteps: 200,
+      // 飞线宽度
+      lineWidth: 2,
+      // 飞线动效
+      animate: true,
+      duration: 3000,
+    });
+
+    // 添加图层到Loca容器
+    loca.add(scatterLayer1);
+    loca.add(scatterLayer2);
+    loca.add(linkLayer);
+
+    // 启动动效
+    loca.animate.start();
+
+    // ===================== 地图交互优化 =====================
+    // 开启鼠标滚轮缩放/拖拽
+    map.enableScrollWheelZoom(true);
+    map.enableDragging(true);
+  </script>
+</body>
+</html>
