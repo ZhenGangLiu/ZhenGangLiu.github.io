@@ -1,0 +1,5 @@
+# WorkBuddy workspace data
+.workbuddy/
+
+# Candidate images (temporary selection pool)
+img/candidates/
