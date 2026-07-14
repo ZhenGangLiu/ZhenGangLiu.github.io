@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yza.yangbai.vip/sitemap.xml
